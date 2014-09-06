@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -19,10 +18,7 @@
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="js/ie-emulation-modes-warning.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <!--here there be dragons-->
-    <script type="text/javascript" src="js/bootstrap-timepicker.min.js"></script>
+	<script src="js/ie-emulation-modes-warning.js"></script>
 
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -33,13 +29,15 @@
   </head>
 
   <body>
-
+	%if validation:
+		<p>{{validation}}</p>
+	%elif handle and time:
+		<p>We signed {{handle}} up with time {{time}}</p>
+	%end
+	<p>
     <div class="site-wrapper">
-
       <div class="site-wrapper-inner">
-
         <div class="cover-container">
-
           <div class="masthead clearfix">
             <div class="inner">
               <h3 class="masthead-brand">Yovary</h3>
@@ -53,14 +51,20 @@
 
           <div class="inner cover">
             <h1 class="cover-heading">Yovary, the Best Pill Solution. Period.</h1>
-            <p class="lead">Meow.</p>
-            <form role="form">
+            <h2 class="lead">Meow.</h2>
+            <form role="form" action="/" method="POST">
 			  <div class="form-group">
-			    <label for="exampleInputEmail1">Yo Handle</label>
-			    <input type="text" class="form-control" placeholder="Text here">
+				%if handle and validation:
+				<input type="text" class="form-control" name="handle" 
+				value="{{handle}}"/>
+				%else:
+			    <input type="text" class="form-control" name="handle" 
+				placeholder="Yo handle"/>
+				%end
 			  </div>
 			  <div class="input-group clockpicker">
-			      <input type="text" class="form-control" value="09:00">
+			      <input type="text" class="form-control" name="time"
+				  value="09:00"/>
 			      <span class="input-group-addon">
 			          <span class="glyphicon glyphicon-time"></span>
 			      </span>

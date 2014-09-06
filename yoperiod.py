@@ -7,6 +7,7 @@ import bottle
 import calendar
 import datetime
 import sortedcontainers
+import os
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -28,7 +29,7 @@ class Reminder:
         utc_datetime = datetime.datetime.utcnow()
         utc_floor_day = floor_datetime_to_day(utc_datetime)
         # schedule for today
-        if (utc_floor_day + self.modulus <= utc_datetime)
+        if utc_floor_day + self.modulus <= utc_datetime:
              self.next_notification = utc_floor_day + self.modulus
 
         # schedule for tomorrow
@@ -47,7 +48,7 @@ class Reminder:
         try:
             urllib.request.urlopen(req)
             return True
-        except urllib.error.URLError, urlib.error.HTTPError:
+        except (urllib.error.URLError, urlib.error.HTTPError):
             return False
 
     def send_reminder():
@@ -76,7 +77,7 @@ class Reminders:
     def add_reminder(self, reminder):
         # iterate through the list and remove other instance of username
         pruned_reminders = sortedcontainers.SortedList()
-        for candidate self.reminders:
+        for candidate in self.reminders:
             # filter reminders with the same username
             if candidate.username != reminder.username:
                 pruned_reminders.append(candidate)
@@ -87,21 +88,40 @@ class Reminders:
 
 reminders = Reminders()
 
+@bottle.route('/<filename:path>')
+def send_static(filename):
+    return bottle.static_file(
+            filename, os.path.dirname(os.path.realpath(__file__)))
+
+
 @bottle.get('/')
 def sign_up_page():
-    return bottle.template('page')
+    return bottle.template('page', validation='', handle='', time='')
 
 @bottle.post('/')
 def sign_up():
-    handle = bottle.request.get('handle')
-    time = bottle.request.get('time')
+    handle = bottle.request.forms.get('handle')
+    time = bottle.request.forms.get('time')
 
     # convert submitted time into a timezone
-    hours, minutes = time.split(':', 2)
-    modulus = datetime.timedelta(hour=hours, minute=minutes)
+    time_parts = time.split(':', 2)
+
+    # validate time is ints
+    try:
+        hour = int(time_parts[0])
+        minute = int(time_parts[1])
+        if hour > 24 or minute > 60:
+            raise ValueError('Invalid hour or minute')
+    except ValueError:
+        return bottle.template('page',
+                validation='You must input a vald time in the form HH:MM!', 
+                handle=handle, time=time)
+
+    modulus = datetime.timedelta(hours=hour, minutes=minute)
+    print("got handle %s and time %s" % (handle, time))
     
     # add the reminder
-    reminders.add_reminder(Reminder(handle, modulus))
-    return bottle.template('page')
+    #reminders.add_reminder(Reminder(handle, modulus))
+    return bottle.template('page', validation='', handle=handle, time=time)
 
 bottle.run(host='localhost', port=8080, debug=True)
