@@ -15,13 +15,15 @@
 
     <!-- Custom styles for this template -->
     <link href="css/cover.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-clockpicker.min.css">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="js/ie-emulation-modes-warning.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap-2.2.2.min.js"></script>
+    <!--here there be dragons-->
     <script type="text/javascript" src="js/bootstrap-timepicker.min.js"></script>
+
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -40,7 +42,7 @@
 
           <div class="masthead clearfix">
             <div class="inner">
-              <h3 class="masthead-brand">Cover</h3>
+              <h3 class="masthead-brand">Yovary</h3>
               <ul class="nav masthead-nav">
                 <li class="active"><a href="#">Home</a></li>
                 <li><a href="#">Features</a></li>
@@ -50,21 +52,23 @@
           </div>
 
           <div class="inner cover">
-            <h1 class="cover-heading">Cover your page.</h1>
+            <h1 class="cover-heading">Yovary, the Best Pill Solution. Period.</h1>
             <p class="lead">Meow.</p>
             <form role="form">
 			  <div class="form-group">
 			    <label for="exampleInputEmail1">Yo Handle</label>
 			    <input type="text" class="form-control" placeholder="Text here">
 			  </div>
-			  <div class="input-append bootstrap-timepicker">
-            	<input id="timepicker1" type="text" class="input-small">
-            	<span class="add-on"><i class="icon-time"></i></span>
-        	  </div>
- 
-        	  <script type="text/javascript">
-            	$('#timepicker1').timepicker();
-        	  </script>
+			  <div class="input-group clockpicker">
+			      <input type="text" class="form-control" value="09:00">
+			      <span class="input-group-addon">
+			          <span class="glyphicon glyphicon-time"></span>
+			      </span>
+			  </div>
+			    <script type="text/javascript" src="js/bootstrap-clockpicker.min.js"></script>
+				<script type="text/javascript">
+				    $('.clockpicker').clockpicker();
+				</script>
 
 			  <div class="checkbox">
 			  </div>
