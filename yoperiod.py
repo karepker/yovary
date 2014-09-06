@@ -24,7 +24,6 @@ def single_user_yo(user_class):
     req = urllib.request.Request('http://api.justyo.co/yo/', data)
     print(urllib.request.urlopen(req))
 
-
 def pill_reminder(user_class, timeRequest):
     if timeRequest in range[datetime.time-5,datetime.time+5]:
         #Once array is implemented, this should iterate through the array
@@ -32,10 +31,6 @@ def pill_reminder(user_class, timeRequest):
     
 @bottle.route('/')
 def sign_up():
-    return 'Hello World!'
+    return bottle.template('page')
 
 bottle.run(host='localhost', port=8080, debug=True)
-
-
-
-    
