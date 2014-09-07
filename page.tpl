@@ -42,18 +42,18 @@
               </ul>
             </div>
           </div>
-          <img src="pix/YovaryWhite.png" style="max-width:100%;"/>
+          <img src="images/YovaryWhite.png" style="max-width:100%;"/>
           <div class="inner cover">
           <h1 class="cover-heading">Never fret. <i>Period</i>.</h1>
             <form role="form" action="/" method="POST">
 			  <div class="form-group">
-				%if handle and validation:
-				<input type="text" class="form-control" name="handle" 
-				value="{{handle}}"/>
-				%else:
-			    <input type="text" class="form-control" name="handle" 
-				placeholder="Yo handle"/>
-				%end
+				% if username and validation:
+				<input type="text" class="form-control" name="username" 
+				value="{{username}}"/>
+				% else:
+			    <input type="text" class="form-control" name="username" 
+				placeholder="Yo username"/>
+				% end
 			  </div>
 			  <div class="input-group clockpicker">
 			      <input type="text" class="form-control" name="time"
