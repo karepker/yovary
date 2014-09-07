@@ -19,6 +19,7 @@
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 	<script src="js/ie-emulation-modes-warning.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -29,13 +30,7 @@
   </head>
 
   <body>
-	%if validation:
-		<p>{{validation}}</p>
-	%elif handle and time:
-		<p>We signed {{handle}} up with time {{time}}</p>
-	%end
-	<p>
-    <div class="site-wrapper">
+	<div class="site-wrapper">
       <div class="site-wrapper-inner">
         <div class="cover-container">
           <div class="masthead clearfix">
@@ -47,10 +42,18 @@
               </ul>
             </div>
           </div>
-          <img src="pix\YovaryWhite.png" style="max-width:100%;">
+          <img src="pix/YovaryWhite.png" style="max-width:100%;"/>
           <div class="inner cover">
             <h1 class="cover-heading">Yovary, the Best Pill Solution. Period.</h1>
             <h2 class="lead">Meow.</h2>
+			%if validation:
+				<div class="alert alert-danger" role="alert">{{validation}}</div>
+			%elif handle and time:
+				<p></p>
+				<div class="alert alert-success" role="alert">
+				We signed {{handle}} up with time {{time}}
+				</div>
+			%end
             <form role="form" action="/" method="POST">
 			  <div class="form-group">
 				%if handle and validation:
@@ -68,16 +71,17 @@
 			          <span class="glyphicon glyphicon-time"></span>
 			      </span>
 			  </div>
-			    <script type="text/javascript" src="js/bootstrap-clockpicker.min.js"></script>
-				<script type="text/javascript">
-				    $('.clockpicker').clockpicker();
-				</script>
+			  <input type="hidden" id="utc-offset" name="utc_offset"/>
 
-			  <div class="checkbox">
-			  </div>
+			  <script type="text/javascript" src="js/bootstrap-clockpicker.min.js"></script>
+			  <script type="text/javascript">
+				$('.clockpicker').clockpicker();
+				d = new Date();
+				$('#utc-offset').val(d.getTimezoneOffset() / 60);
+			  </script>
 			  <button type="submit" class="btn btn-default">Submit</button>
 			</form>
-		</div>
+		  </div> <!-- inner cover -->
 
 
           <div class="mastfoot">
@@ -92,7 +96,6 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/docs.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

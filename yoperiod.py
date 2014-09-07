@@ -9,18 +9,22 @@ import datetime
 import os
 import sortedcontainers
 import threading
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
+
+SEND_THREAD_MAX_SLEEP_TIME = 5  # in seconds
 
 def get_utc_timestamp(utc_datetime):
     return calendar.timegm(utc_datetime.utctimetuple())
 
 
 def floor_datetime_to_day(utc_datetime):
-    copied_datetime = utc_datetime
-    copied_datetime.replace(hour=0, minute=0, second=0, microsecond=0)
-    return copied_datetime
+    floored_datetime = utc_datetime - datetime.timedelta(hours=utc_datetime.hour,
+            minutes=utc_datetime.minute, seconds=utc_datetime.second,
+            microseconds=utc_datetime.microsecond)
+    return floored_datetime
 
 
 class Reminder:
@@ -32,7 +36,7 @@ class Reminder:
         utc_datetime = datetime.datetime.utcnow()
         utc_floor_day = floor_datetime_to_day(utc_datetime)
         # schedule for today
-        if utc_floor_day + self.modulus <= utc_datetime:
+        if utc_floor_day + self.modulus > utc_datetime:
              self.next_notification = utc_floor_day + self.modulus
 
         # schedule for tomorrow
@@ -42,16 +46,18 @@ class Reminder:
            
     def send_yo(self):
         payload = {
-            'api_token': user_class.api_token,
-            'username': user_class.username
+            'api_token': Reminder.api_token,
+            'username': self.username
             }
         data = urllib.parse.urlencode(payload)
         data = data.encode('utf-8')
         req = urllib.request.Request('http://api.justyo.co/yo/', data)
         try:
             urllib.request.urlopen(req)
+            print('Sucessfully sent yo')
             return True
         except (urllib.error.URLError, urlib.error.HTTPError):
+            print('Failed to send yo')
             return False
 
     def send_reminder(self):
@@ -65,7 +71,7 @@ class Reminder:
     def __lt__(self, other):
         return self.next_notification < other.next_notification
         
-    def _set_next_send_time():
+    def _set_next_send_time(self):
         self.next_notification += datetime.timedelta(days=1)
 
 
@@ -93,15 +99,28 @@ class Reminders:
         self.reminders = pruned_reminders
 
     def get_seconds_until_next_reminder(self):
-        return self.reminders
+        # return an arbitrarily high sleep number
+        if not self.reminders:
+            return SEND_THREAD_MAX_SLEEP_TIME
 
+        time_until_next_notification = (self.reminders[0].next_notification - 
+                datetime.datetime.utcnow())
+        seconds_until_next = time_until_next_notification.total_seconds()
+        now = datetime.datetime.utcnow()
+        return seconds_until_next
 
-reminders = Reminders()
-#threading.Thread(target=run, kwargs=dict(host='localhost', port=8080)).start()
 
 def send_messages():
     while True:
         reminders.send_reminders()
+        time_to_sleep = min(reminders.get_seconds_until_next_reminder(),
+                            SEND_THREAD_MAX_SLEEP_TIME)
+        if time_to_sleep > 1:
+           time.sleep(time_to_sleep)   
+
+
+reminders = Reminders()
+threading.Thread(target=send_messages).start()
 
 
 @bottle.route('/<filename:path>')
@@ -114,10 +133,12 @@ def send_static(filename):
 def sign_up_page():
     return bottle.template('page', validation='', handle='', time='')
 
+
 @bottle.post('/')
 def sign_up():
     handle = bottle.request.forms.get('handle')
     time = bottle.request.forms.get('time')
+    utc_offset = bottle.request.forms.get('utc_offset')
 
     # convert submitted time into a timezone
     time_parts = time.split(':', 2)
@@ -126,18 +147,28 @@ def sign_up():
     try:
         hour = int(time_parts[0])
         minute = int(time_parts[1])
-        if hour > 24 or minute > 60:
+        if hour > 24 or hour < 0 or minute > 60 or minute < 0:
             raise ValueError('Invalid hour or minute')
     except ValueError:
         return bottle.template('page',
-                validation='You must input a vald time in the form HH:MM!', 
+                validation='You must input a vald time in the form HH:MM!',
                 handle=handle, time=time)
 
-    modulus = datetime.timedelta(hours=hour, minutes=minute)
-    
+    try:
+        hours_from_utc = int(utc_offset)
+    except ValueError:
+        return bottle.template('page',
+                validation='Could not detect timezone!',
+                handle=handle, time=time)
+
+    # convert local time to utc time
+    utc_hour = (hour + hours_from_utc) % 24
+    modulus = datetime.timedelta(hours=utc_hour, minutes=minute)
+
     # add the reminder
     reminders.add_reminder(Reminder(handle, modulus))
     return bottle.template('page', validation='', handle=handle, time=time)
+
 
 @bottle.get('/list')
 def list():
@@ -145,6 +176,3 @@ def list():
 
 # start bottle, start notifying thread
 bottle.run(host='localhost', port=8080, debug=True)
-#threading.Thread(target=run, kwargs=dict(host='localhost', port=8080)).start()
-
-
