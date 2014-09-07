@@ -1,3 +1,4 @@
+<!-- For debugging only -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -29,11 +30,6 @@
   </head>
 
   <body>
-	%if validation:
-		<p>{{validation}}</p>
-	%elif handle and time:
-		<p>We signed {{handle}} up with time {{time}}</p>
-	%end
 	<p>
     <div class="site-wrapper">
       <div class="site-wrapper-inner">
@@ -50,34 +46,13 @@
           </div>
 
           <div class="inner cover">
-            <h1 class="cover-heading">Yovary, the Best Pill Solution. Period.</h1>
-            <h2 class="lead">Meow.</h2>
-            <form role="form" action="/" method="POST">
-			  <div class="form-group">
-				%if handle and validation:
-				<input type="text" class="form-control" name="handle" 
-				value="{{handle}}"/>
-				%else:
-			    <input type="text" class="form-control" name="handle" 
-				placeholder="Yo handle"/>
-				%end
-			  </div>
-			  <div class="input-group clockpicker">
-			      <input type="text" class="form-control" name="time"
-				  value="09:00"/>
-			      <span class="input-group-addon">
-			          <span class="glyphicon glyphicon-time"></span>
-			      </span>
-			  </div>
-			    <script type="text/javascript" src="js/bootstrap-clockpicker.min.js"></script>
-				<script type="text/javascript">
-				    $('.clockpicker').clockpicker();
-				</script>
-
-			  <div class="checkbox">
-			  </div>
-			  <button type="submit" class="btn btn-default">Submit</button>
-			</form>
+			<ul>
+				% for reminder in reminders.reminders:
+				<li>
+				Reminder for {{reminder.username}} at {{reminder.modulus}}
+				</li>
+				% end
+			</ul>
           </div>
 
 

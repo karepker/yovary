@@ -6,24 +6,27 @@
 import bottle
 import calendar
 import datetime
-import sortedcontainers
 import os
+import sortedcontainers
+import threading
 import urllib.error
 import urllib.parse
 import urllib.request
 
-
 def get_utc_timestamp(utc_datetime):
     return calendar.timegm(utc_datetime.utctimetuple())
 
+
 def floor_datetime_to_day(utc_datetime):
-    utc_datetime.replace(hour=0, minute=0, second=0, microseconds=0)
+    copied_datetime = utc_datetime
+    copied_datetime.replace(hour=0, minute=0, second=0, microsecond=0)
+    return copied_datetime
 
 
 class Reminder:
     api_token = 'f1e28817-3528-621a-70ac-8086fc300205'
 
-    def __init__(username, time_of_day):
+    def __init__(self, username, time_of_day):
         self.username = username
         self.modulus = time_of_day
         utc_datetime = datetime.datetime.utcnow()
@@ -37,7 +40,7 @@ class Reminder:
             self.next_notification = (utc_floor_day + datetime.timedelta(days=1)
                     + self.modulus)
            
-    def send_yo():
+    def send_yo(self):
         payload = {
             'api_token': user_class.api_token,
             'username': user_class.username
@@ -51,7 +54,7 @@ class Reminder:
         except (urllib.error.URLError, urlib.error.HTTPError):
             return False
 
-    def send_reminder():
+    def send_reminder(self):
         if not datetime.datetime.utcnow() > self.next_notification:
             return False
 
@@ -59,15 +62,19 @@ class Reminder:
         self._set_next_send_time()
         return True
 
+    def __lt__(self, other):
+        return self.next_notification < other.next_notification
+        
     def _set_next_send_time():
         self.next_notification += datetime.timedelta(days=1)
+
 
 class Reminders:
 
     def __init__(self):
         self.reminders = sortedcontainers.SortedList()
 
-    def send_yos(self):
+    def send_reminders(self):
         # send reminders until a reminder does not need to be sent
         while self.reminders and self.reminders[0].send_reminder():
             first_reminder = self.reminders[0] 
@@ -85,8 +92,17 @@ class Reminders:
         pruned_reminders.add(reminder)
         self.reminders = pruned_reminders
 
+    def get_seconds_until_next_reminder(self):
+        return self.reminders
+
 
 reminders = Reminders()
+#threading.Thread(target=run, kwargs=dict(host='localhost', port=8080)).start()
+
+def send_messages():
+    while True:
+        reminders.send_reminders()
+
 
 @bottle.route('/<filename:path>')
 def send_static(filename):
@@ -118,10 +134,17 @@ def sign_up():
                 handle=handle, time=time)
 
     modulus = datetime.timedelta(hours=hour, minutes=minute)
-    print("got handle %s and time %s" % (handle, time))
     
     # add the reminder
-    #reminders.add_reminder(Reminder(handle, modulus))
+    reminders.add_reminder(Reminder(handle, modulus))
     return bottle.template('page', validation='', handle=handle, time=time)
 
+@bottle.get('/list')
+def list():
+    return bottle.template('list', reminders=reminders)
+
+# start bottle, start notifying thread
 bottle.run(host='localhost', port=8080, debug=True)
+#threading.Thread(target=run, kwargs=dict(host='localhost', port=8080)).start()
+
+
