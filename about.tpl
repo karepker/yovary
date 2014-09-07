@@ -36,13 +36,17 @@
           <div class="inner">
             <ul class="nav masthead-nav">
               <li><a href="/">Home</a></li>
-              <li class="active"><a href="#">Contact</a></li>
+              <li class="active"><a href="#">About</a></li>
             </ul>
           </div>
         </div>
         <img src="images/YovaryWhite.png" style="max-width:100%;">
-	    <p>Combining the ease of a one-time sign up with Yo's simple push notifications, Yovary has your back when it comes to taking the pill. Registered Yo users can now receive friendly reminders, avoiding the hassle of alarms or calendar events.</p>
-        <p>Have any questions? Feel free to reach out to us with feedback at <a href="mailto:contact@yovary.me">contact@yovary.me</a></p>
+	    <p>Combining the ease of one-time sign up with Yo's simple push
+		notifications, Yovary has your back when it comes to taking the pill.
+		Registered Yo users can now receive friendly reminders, avoiding the
+		hassle of alarms or calendar events.</p>
+        <p>Have any questions? Feel free to reach out to us with feedback at 
+		<a href="mailto:contact@yovary.me">contact@yovary.me</a></p>
       </div>
     </div>
     <div id="yo-button"></div>
