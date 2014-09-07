@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Yovary</title>
+    <title>Take Yo' Birth Control</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -51,7 +51,7 @@
           </div>
           <img src="pix\YovaryWhite.png" style="max-width:100%;">
           <div class="inner cover">
-            <h1 class="cover-heading">Yovary, the Best Pill Solution.<i> Period</i>.</h1>
+            <h1 class="cover-heading">Never fret.<i> Period</i>.</h1>
             <form role="form">
 			  <div class="form-group">
 			    <!--<label for="exampleInputEmail1">Yo Handle</label> -->
@@ -76,11 +76,7 @@
       <!--</div>-->
 
 
-          <div class="mastfoot">
-            <div class="inner">
-              <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-            </div>
-          </div>
+
 
         </div>
 
@@ -99,7 +95,7 @@
     <script type="text/javascript">
       var _yoData = {
         "username": "YOVARY",
-        "trigger": "When they need totake birth control"
+        "trigger": "When they need tot ake birth control"
       };
       var s = document.createElement("script");
       s.type = "text/javascript";
