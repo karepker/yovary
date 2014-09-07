@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Yovary</title>
+    <title>Take Yo' Birth Control</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -37,23 +37,14 @@
             <div class="inner">
               <div id="yo-button"></div>
               <ul class="nav masthead-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Contact</a></li>
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="/contact">Contact</a></li>
               </ul>
             </div>
           </div>
           <img src="pix/YovaryWhite.png" style="max-width:100%;"/>
           <div class="inner cover">
-            <h1 class="cover-heading">Yovary, the Best Pill Solution. Period.</h1>
-            <h2 class="lead">Meow.</h2>
-			%if validation:
-				<div class="alert alert-danger" role="alert">{{validation}}</div>
-			%elif handle and time:
-				<p></p>
-				<div class="alert alert-success" role="alert">
-				We signed {{handle}} up with time {{time}}
-				</div>
-			%end
+          <h1 class="cover-heading">Never fret. <i>Period</i>.</h1>
             <form role="form" action="/" method="POST">
 			  <div class="form-group">
 				%if handle and validation:
@@ -81,14 +72,7 @@
 			  </script>
 			  <button type="submit" class="btn btn-default">Submit</button>
 			</form>
-		  </div> <!-- inner cover -->
-
-
-          <div class="mastfoot">
-            <div class="inner">
-              <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-            </div>
-          </div>
+		  </div>
         </div>
       </div>
     </div>
@@ -103,7 +87,7 @@
     <script type="text/javascript">
       var _yoData = {
         "username": "YOVARY",
-        "trigger": "When they need totake birth control"
+        "trigger": "When they need tot ake birth control"
       };
       var s = document.createElement("script");
       s.type = "text/javascript";

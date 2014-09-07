@@ -170,6 +170,11 @@ def sign_up():
     return bottle.template('page', validation='', handle=handle, time=time)
 
 
+@bottle.get('/contact')
+def list():
+    return bottle.template('contact')
+
+
 @bottle.get('/list')
 def list():
     return bottle.template('list', reminders=reminders)
