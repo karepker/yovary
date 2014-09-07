@@ -1,3 +1,4 @@
+<!-- For debugging only -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -29,55 +30,30 @@
   </head>
 
   <body>
-	%if validation:
-		<p>{{validation}}</p>
-	%elif handle and time:
-		<p>We signed {{handle}} up with time {{time}}</p>
-	%end
 	<p>
     <div class="site-wrapper">
       <div class="site-wrapper-inner">
         <div class="cover-container">
           <div class="masthead clearfix">
             <div class="inner">
-              <div id="yo-button"></div>
+              <h3 class="masthead-brand">Yovary</h3>
               <ul class="nav masthead-nav">
                 <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Features</a></li>
                 <li><a href="#">Contact</a></li>
               </ul>
             </div>
           </div>
-          <img src="pix\YovaryWhite.png" style="max-width:100%;">
-          <div class="inner cover">
-            <h1 class="cover-heading">Yovary, the Best Pill Solution. Period.</h1>
-            <h2 class="lead">Meow.</h2>
-            <form role="form" action="/" method="POST">
-			  <div class="form-group">
-				%if handle and validation:
-				<input type="text" class="form-control" name="handle" 
-				value="{{handle}}"/>
-				%else:
-			    <input type="text" class="form-control" name="handle" 
-				placeholder="Yo handle"/>
-				%end
-			  </div>
-			  <div class="input-group clockpicker">
-			      <input type="text" class="form-control" name="time"
-				  value="09:00"/>
-			      <span class="input-group-addon">
-			          <span class="glyphicon glyphicon-time"></span>
-			      </span>
-			  </div>
-			    <script type="text/javascript" src="js/bootstrap-clockpicker.min.js"></script>
-				<script type="text/javascript">
-				    $('.clockpicker').clockpicker();
-				</script>
 
-			  <div class="checkbox">
-			  </div>
-			  <button type="submit" class="btn btn-default">Submit</button>
-			</form>
-		</div>
+          <div class="inner cover">
+			<ul>
+				% for reminder in reminders.reminders:
+				<li>
+				Reminder for {{reminder.username}} at {{reminder.modulus}}
+				</li>
+				% end
+			</ul>
+          </div>
 
 
           <div class="mastfoot">
@@ -97,15 +73,5 @@
     <script src="js/docs.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/ie10-viewport-bug-workaround.js"></script>
-    <script type="text/javascript">
-      var _yoData = {
-        "username": "YOVARY",
-        "trigger": "When they need totake birth control"
-      };
-      var s = document.createElement("script");
-      s.type = "text/javascript";
-      s.src = "//yoapp.s3.amazonaws.com/js/yo-button.js";
-      (document.head || document.getElementsByTagName("head")[0]).appendChild(s);
-    </script>
   </body>
 </html>
