@@ -200,7 +200,7 @@ def sign_up():
     return bottle.template('page', validation='', username=username, time=time)
 
 
-@bottle.route('/contact')
+@bottle.route('/about')
 def list():
     return bottle.template('contact')
 
