@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -15,13 +14,10 @@
 
     <!-- Custom styles for this template -->
     <link href="css/cover.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-clockpicker.min.css">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="js/ie-emulation-modes-warning.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <!--here there be dragons-->
     <script type="text/javascript" src="js/bootstrap-timepicker.min.js"></script>
 
 
@@ -35,28 +31,19 @@
   <body>
 
     <div class="site-wrapper">
-
-      <!---<div class="site-wrapper-inner">-->
-
-        <div class="cover-container">
-
-          <div class="masthead clearfix">
-            <div class="inner">
-              <ul class="nav masthead-nav">
-                <li><a href="#">Home</a></li>
-                <li class="active"><a href="#">Contact</a></li>
-              </ul>
-            </div>
+      <div class="cover-container">
+        <div class="masthead clearfix">
+          <div class="inner">
+            <ul class="nav masthead-nav">
+              <li><a href="/">Home</a></li>
+              <li class="active"><a href="#">Contact</a></li>
+            </ul>
           </div>
-          <img src="pix\YovaryWhite.png" style="max-width:100%;">
-            <h4 class="cover-heading"<p>Combining the ease of a one-time sign up with Yo's simple push notifications, Yovary has your back when it comes to taking the pill. Registered Yo users can now receive friendly reminders, avoiding the hassle of alarms or calendar events.</p> 
-            <p>Have any questions? Feel free to reach out to us with feedback at <a href="mailto:contact@yovary.me">contact@yovary.me</a></p></h4>
-          
-      <!--</div>-->
-
-
+        </div>
+        <img src="pix/YovaryWhite.png" style="max-width:100%;">
+	    <p>Combining the ease of a one-time sign up with Yo's simple push notifications, Yovary has your back when it comes to taking the pill. Registered Yo users can now receive friendly reminders, avoiding the hassle of alarms or calendar events.</p>
+        <p>Have any questions? Feel free to reach out to us with feedback at <a href="mailto:contact@yovary.me">contact@yovary.me</a></p>
       </div>
-
     </div>
     <div id="yo-button"></div>
 
@@ -71,7 +58,7 @@
     <script type="text/javascript">
       var _yoData = {
         "username": "YOVARY",
-        "trigger": "When they need tot ake birth control"
+        "trigger": "When they need to take birth control"
       };
       var s = document.createElement("script");
       s.type = "text/javascript";
