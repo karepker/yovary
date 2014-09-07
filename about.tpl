@@ -40,7 +40,7 @@
             </ul>
           </div>
         </div>
-        <img src="images/YovaryWhite.png" style="max-width:100%;">
+        <img src="images/YovaryWhite.png" style="max-width:100%;"/>
 	    <p>Combining the ease of one-time sign up with Yo's simple push
 		notifications, Yovary has your back when it comes to taking the pill.
 		Registered Yo users can now receive friendly reminders, avoiding the
@@ -62,7 +62,7 @@
     <script type="text/javascript">
       var _yoData = {
         "username": "YOVARY",
-        "trigger": "When they need to take birth control"
+        "trigger": "you need to take birth control"
       };
       var s = document.createElement("script");
       s.type = "text/javascript";

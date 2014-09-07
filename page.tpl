@@ -70,6 +70,7 @@
 				d = new Date();
 				$('#utc-offset').val(d.getTimezoneOffset() / 60);
 			  </script>
+			  <br/>
 			  <button type="submit" class="btn btn-default">Submit</button>
 			</form>
 		  </div>
@@ -87,7 +88,7 @@
     <script type="text/javascript">
       var _yoData = {
         "username": "YOVARY",
-        "trigger": "When they need tot ake birth control"
+        "trigger": "you need to take birth control"
       };
       var s = document.createElement("script");
       s.type = "text/javascript";
