@@ -10,6 +10,7 @@ __author__ = 'karepker@gmail.com (Kar Epker)'
 import calendar
 import datetime
 import json
+import logging
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -57,10 +58,10 @@ class Reminder:
         req = urllib.request.Request('http://api.justyo.co/yo/', data)
         try:
             urllib.request.urlopen(req)
-            print('Sucessfully sent yo')
+            logging.info('Successfully sent yo to %s' % (self.username))
             return True
         except (urllib.error.URLError, urlib.error.HTTPError):
-            print('Failed to send yo')
+            logging.error('Failed to send yo to %s' % (self.username))
             return False
 
     def send_reminder(self):

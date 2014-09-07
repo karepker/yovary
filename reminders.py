@@ -8,6 +8,7 @@ __author__ = 'karepker@gmail.com (Kar Epker)'
 
 
 import datetime
+import logging
 import sortedcontainers
 
 
@@ -53,9 +54,10 @@ class Reminders:
 
     def serialize_to_file(self, filename):
         with open(filename, 'w') as out_file:
+            logging.info('Saving %d reminders' % (len(self.reminders)))
             for reminder in self.reminders:
-                print("writing reminder")
                 out_file.write(reminder.json_serialize())
+                out_file.write('\n')
 
 
 reminders = Reminders()

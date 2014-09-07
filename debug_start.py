@@ -8,6 +8,7 @@ __author__ = 'karepker@gmail.com (Kar Epker)'
 
 
 import debug_routes
+import logging
 import production_routes
 import server
 import server_tasks
@@ -15,6 +16,7 @@ import threading
 
 from reminders import reminders
 
+logging.basicConfig(level=logging.DEBUG)
 
 debug_server = server.Server(host='localhost', port=8080, debug=True)
 message_send_thread = threading.Thread(

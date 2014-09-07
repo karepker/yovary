@@ -32,6 +32,20 @@ def sign_up():
     time = bottle.request.forms.get('time')
     utc_offset = bottle.request.forms.get('utc_offset')
 
+    # username and time are required parameters
+    if not time or not username:
+        return bottle.template('page',
+                validation='You must send both time and username!',
+                username=username, time=time)
+
+
+    # validate username
+    if not username.isalpha():
+        return bottle.template('page',
+                validation='Your username must consist of only alphabetical '
+                'characters!', username=username, time=time)
+
+
     # convert submitted time into a timezone
     time_parts = time.split(':', 2)
 
@@ -41,7 +55,7 @@ def sign_up():
         minute = int(time_parts[1])
         if hour > 24 or hour < 0 or minute > 60 or minute < 0:
             raise ValueError('Invalid hour or minute')
-    except ValueError:
+    except (ValueError, TypeError):
         return bottle.template('page',
                 validation='You must input a vald time in the form HH:MM!',
                 username=username, time=time)
