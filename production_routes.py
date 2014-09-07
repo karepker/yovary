@@ -15,6 +15,9 @@ import threading
 from reminders import reminders
 
 
+POSTPONE_DURATION = 15  # in minutes
+
+
 @bottle.route('/<filename:path>')
 def send_static(filename):
     return bottle.static_file(

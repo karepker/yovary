@@ -12,7 +12,6 @@ import time
 from production_routes import reminders
 
 
-POSTPONE_DURATION = 15  # in minutes
 SAVE_THREAD_SLEEP_TIME = 1 * 60  # one hour in seconds
 SAVED_NOTIFICATIONS_FILE = '/tmp/saved_reminders.txt'
 SEND_THREAD_MAX_SLEEP_TIME = 5  # in seconds
