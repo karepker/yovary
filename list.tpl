@@ -49,7 +49,8 @@
 			<ul>
 				% for reminder in reminders.reminders:
 				<li>
-				Reminder for {{reminder.username}} at {{reminder.modulus}}
+				Reminder for {{reminder.username}} at {{reminder.modulus}},
+				will next be sent at {{reminder.next_notification}}
 				</li>
 				% end
 			</ul>
