@@ -28,6 +28,7 @@
       <div class="cover-container">
         <div class="masthead clearfix">
           <div class="inner">
+            <div id="yo-button"></div>
             <ul class="nav masthead-nav">
               <li><a href="/">Home</a></li>
               <li class="active"><a href="#">About</a></li>
@@ -39,11 +40,10 @@
 		notifications, Yovary has your back when it comes to taking the pill.
 		Registered Yo users can now receive friendly reminders, avoiding the
 		hassle of alarms or calendar events.</p>
-        <p>Have any questions? Feel free to reach out to us with feedback at 
+    <p>Have any questions? Feel free to reach out to us with feedback at 
 		<a href="mailto:contact@yovary.me">contact@yovary.me</a></p>
       </div>
     </div>
-    <div id="yo-button"></div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
