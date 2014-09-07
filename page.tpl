@@ -16,9 +16,6 @@
     <link href="css/cover.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/bootstrap-clockpicker.min.css">
 
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-	<script src="js/ie-emulation-modes-warning.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 
@@ -46,13 +43,23 @@
           <div class="inner cover">
           <h1 class="cover-heading">Never fret. <i>Period</i>.</h1>
             <form role="form" action="/" method="POST">
+              % if validation:
+			  <div class="alert alert-danger" role="alert">
+			    {{validation}}
+			  </div>
+              % elif not validation and username:
+			  <div class="alert alert-success" role="alert">
+			    Successfully created alert for {{username}} at {{time}}.
+			  </div>
+			  % end
+
 			  <div class="form-group">
 				% if username and validation:
 				<input type="text" class="form-control" name="username" 
-				value="{{username}}"/>
+				id="username" value="{{username}}"/>
 				% else:
 			    <input type="text" class="form-control" name="username" 
-				placeholder="Yo username"/>
+				id="username" placeholder="Yo username"/>
 				% end
 			  </div>
 			  <div class="input-group clockpicker">
@@ -82,7 +89,6 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/docs.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/ie10-viewport-bug-workaround.js"></script>
     <script type="text/javascript">
@@ -94,6 +100,7 @@
       s.type = "text/javascript";
       s.src = "//yoapp.s3.amazonaws.com/js/yo-button.js";
       (document.head || document.getElementsByTagName("head")[0]).appendChild(s);
+	  $(document).ready(function($) { $('#username').focus(); });
     </script>
   </body>
 </html>
