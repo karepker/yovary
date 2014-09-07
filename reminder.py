@@ -60,7 +60,7 @@ class Reminder:
             urllib.request.urlopen(req)
             logging.info('Successfully sent yo to %s' % (self.username))
             return True
-        except (urllib.error.URLError, urlib.error.HTTPError):
+        except (urllib.error.URLError, urllib.error.HTTPError):
             logging.error('Failed to send yo to %s' % (self.username))
             return False
 
